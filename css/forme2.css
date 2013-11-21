@@ -1,0 +1,111 @@
+footer{
+position:absolute;
+bottom:0px;
+}
+
+/* Couleurs */
+.gris_clair {
+  background:#D3D3D3;
+  }
+
+.gris_fonce {
+  background:silver;
+  }
+
+/* Style des conteneur */
+/* Classes */
+.conteneur{
+	height:500px;
+}
+ .jumbotron{
+margin-top:-20px;
+}
+.info{
+	display:none;
+}
+
+.information{
+	position : absolute;
+	left : 160px;
+	width: 800px;
+}
+
+/* ID */
+#accueil{
+	display:block;
+}
+
+#simulation{
+	display:none;
+}
+
+#traitement{
+	background:#D3D3D3;
+	display:none;
+}
+
+#eprouvette{
+	background:aqua;
+	width:60px;
+	height:500px;
+}
+
+#bille{
+	position:absolute;
+	background : black;
+	-webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    width:20px;
+    height:20px;
+    left:35px;
+    top:0px;
+    color:rgba(0,0,0,0);
+}
+
+#valeurBille{
+	display:hidden;
+}
+
+#sol{
+	position:absolute;
+	top:490px;
+	width:70px;
+	height:40px;
+	left:80px;
+}
+#hauteurMaximaleAffiche{
+	position:absolute;
+	top:0px;
+	width:70px;
+	height:40px;
+	left:80px;
+}
+#hauteurDepartAffiche{
+	position:absolute;
+	top:0px;
+	width:70px;
+	height:40px;
+	left:80px;
+}
+
+#choixSimulation{
+position:absolute;
+width:300px
+}
+
+#resultat{
+	position:absolute;
+	top:250px;
+	width:400px
+}
+
+div#version{
+	display:none;
+	width:500px;
+}
+
+div#instructions{
+	display:none;
+	width:500px;
+}

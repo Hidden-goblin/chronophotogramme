@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Chronophotogramme d'une chute de bille dans le vide.</title>
+	<!-- Bibliothèques JQuery -->
+	<script src="./js/jquery-1.8.2.min.js"> </script>
+	<script src="./js/jquery-ui-1.8.21.min.js"></script>
+	<!-- Bibliothèque Modernizr -->
+	<!-- <script src="./js/modernizr.52422.js"></script> -->
+  <!-- Bibliothèque Bootstrap -->
+  <script src="./js/bootstrap.js"></script>
+	<!-- Application javascript -->
+	<script src="./js/app.setting.js"></script>
+	<script src="./js/app.simulation.js"></script>
+	<script src="./js/app.calcul.js"></script>
+	<script src="./js/app.scene.js"></script>
+	<script src="./js/app.tests.js"></script>
+	<script src="./js/app.js"></script>
+	<!-- Feuilles de styles -->
+  <link rel="stylesheet" href="./css/bootstrap.css">
+	<link rel="stylesheet" href="./css/forme2.css" >
+	<link rel="stylesheet" href="./css/jquery-ui.css" >  
+</head>
+<body>
+<!-- Div popup d'information et licence -->
+<div id="version" title="Notes de versions" class="ui-dialog"> 
+<h1>Licence</h1>
+	<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+	<img alt="Licence Creative Commons" style="border-width:0" src="img/88x31.png" /></a>
+	<br />Cette oeuvre est mise à disposition selon les termes de la <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Licence Creative Commons :
+	<br/> Attribution - Pas d&#39;Utilisation Commerciale - Partage à l&#39;Identique 3.0 non transposé</a>.
+</div>
+
+<div id="instructions" title="Mode d'emploi" class="ui-dialog"> 
+<h1>Mode d'emploi</h1>
+	<p>
+		Cette application a pour but la simulation de la chute d'une bille dans le vide en vue de lier la hauteur de chute à la vitesse d'inpact.
+	</p>
+</div> 
+
+<!-- Barre de navigation -->
+<nav class="navbar navbar-inverse" role="navigation">
+  <div class="navbar-header">
+    <ul class="nav navbar-nav">
+      <li><a href="../index.html">Accueil</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Applications 
+        <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="../referentiel/index.html">Problème de caméra.</a></li>
+          <li><a href="#">Bloqué sur Terre !</a></li>
+          <li><a href="../chute/index.html">Absence de matériel.</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+<!--Entête indiquant le titre et la page où l'on se trouve  -->
+<div class="jumbotron">
+<div class="container">
+	<h2>Chronophotogramme <small> de la chute d'une bille dans le vide. </small></h2>
+		<p>
+			<span id="titrePage"> Sélection des paramètres de simulation. </span>
+		</p>
+</div>
+</div>
+
+<!-- Les différentes sections qui seront affichées ou cachés -->
+<!--  Faire un hack pour firefox et ie pour le type number :( -->
+<div id="accueil" class="container" >
+	<form id="parametres" class="form-horizontal" role="form">
+    <div class="form-group">
+      <label for="hauteurDepart" class="col-md-4 control-label">Hauteur de départ de la bille</label>
+      <div class="col-md-8">
+        <input id="hauteurDepart" class="form-control" name="hauteurDepart" type="number" min="1" max="10" value="1" /><span id="hauteur" class="info"></span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="masseBille" class="col-md-4 control-label">Masse de la bille (en gramme)</label>
+      <div class="col-md-8">
+        <input id="masseBille" class="form-control" name="masseBille" type="number" min="10" max="100" step="10" value="10"/><span id="masse" class="info"></span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="vitesseInitiale" class="col-md-4 control-label">Vitesse initiale de la bille</label>
+      <div class="col-md-8">
+        <input id="vitesseInitiale" class="form-control" name="vitesseInitiale" type="number" min="0" max="10" value="0"/><span id="vitesse" class="info"></span>
+      </div>
+    </div>
+
+	<div class="form-group" >
+		<label for="sens" class="col-md-4 control-label">Sens de la vitesse initiale : vers le bas</label>
+    <div class="col-md-8">
+		<input id="sens" class="form-control" name="sens" type="checkbox" value="0" checked/>
+	</div>
+    </div>
+
+	<div class="form-group">
+		<label for="lieu" class="col-md-4 control-label">Où fait-on l'expérience?</label> 
+    <div class="col-md-8">
+		<select id="lieu" name="lieu" class="form-control">
+			<option value="Mercure">Mercure</option>
+			<option value="Venus">Vénus</option>
+			<option value="Terre" selected>Terre</option>
+			<option value="Lune">Lune</option>
+			<option value="Mars">Mars</option>
+			<option value="Jupiters">Jupiters</option>
+			<option value="Saturne">Saturne</option>
+			<option value="Uranus">Uranus</option>
+			<option value="Neptune">Neptune</option>
+		</select>
+	</div>
+  </div>
+
+	<input type="submit" class="btn btn-primary" value="Aller à la simulation"/>
+	<input type="reset"  class="btn btn-primary" value="Réinitialiser"/>
+	</form>
+</div>
+
+<div id="simulation" class="container">
+  <div class="row">
+    <!-- Les boutons d'action de la simulation --->
+    <div class="col-md-2">
+       <div class="boutons">
+        <p><button id="animation" class="btn btn-primary">Lancer la simulation</button></p>
+        <p><button id="reset" class="btn btn-primary">Revenir à l'état initial</button></p>
+        <p><button id="retourParam" class="btn btn-primary">Retourner aux paramètres</button></p>
+      </div>
+    </div>
+    
+    <!-- Les informations textuelles --->
+    <div class="col-md-7">
+      <div class="information" class="col-md-4">
+        <div id="simulationInformationTexte"> 
+          <p id="parametresChoisis"> </p>
+          <p id="tempsSimulation"></p>
+          <p id="erreurs"></p>
+          <p id="intervale"></p>
+        </div>
+        <div id="choixSimulation">
+        <form class="form">
+        <p>
+          <label for="dilatationTemps"> Modification du passage du temps</label>
+          <select id="dilatationTemps" name="dilatationTemps" class="form-control"> 
+            <option value="320">Ralenti 8x</option>
+            <option value="160">Ralenti 4x</option>
+            <option value="80">Ralenti 2x</option>
+            <option value="40" selected>Temps réel</option>
+            <option value="20">Accéléré 2x</option>
+            <option value="10">Accéléré 4x</option>
+            <option value="5">Accéléré 8x</option>
+          </select>
+        </p>
+        </form>
+        </div>
+        <div id="resultat">
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- La simulation visuelle --->
+    <div class="col-md-3">
+      <div id="hauteurDepartAffiche">Echo</div>
+      <div id="hauteurMaximaleAffiche">Tango</div>
+      <div id="sol">h = 0m</div>    
+      <div id="eprouvette">
+        <div id="bille">0</div>
+        
+      </div>
+        
+    </div>
+   </div>        
+</div>
+
+
+<!-- Notes d'appartenance -->
+<footer class="container">
+<!-- Faire popup sur les liens -->
+	<button id="buttonVersion" class="btn btn-default">Notes de versions</button>
+	<!--  <a href="#?w=500" rel="version"> Notes de versions</a>-->
+	<br />
+	<button id="buttonInstructions" class="btn btn-default">Mode d'emploi</button>
+	<br />
+	E Aivayan
+	<br />
+	
+</footer>
+</body>
+</html>
