@@ -7,7 +7,7 @@
 	<script src="./js/jquery-1.8.2.min.js"> </script>
 	<script src="./js/jquery-ui-1.8.21.min.js"></script>
 	<!-- Bibliothèque Modernizr -->
-	<!-- <script src="./js/modernizr.52422.js"></script> -->
+	<script src="./js/modernizr.52422.js"></script> 
   <!-- Bibliothèque Bootstrap -->
   <script src="./js/bootstrap.js"></script>
 	<!-- Application javascript -->
@@ -20,7 +20,8 @@
 	<!-- Feuilles de styles -->
   <link rel="stylesheet" href="./css/bootstrap.css">
 	<link rel="stylesheet" href="./css/forme2.css" >
-	<link rel="stylesheet" href="./css/jquery-ui.css" >  
+	<link rel="stylesheet" href="./css/jquery-ui.css" >
+  <link rel="stylesheet" href="./css/modif.css" >  
 </head>
 <body>
 <!-- Div popup d'information et licence -->
@@ -39,27 +40,11 @@
 	</p>
 </div> 
 
-<!-- Barre de navigation -->
-<nav class="navbar navbar-inverse" role="navigation">
-  <div class="navbar-header">
-    <ul class="nav navbar-nav">
-      <li><a href="../index.html">Accueil</a></li>
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Applications 
-        <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li><a href="../referentiel/index.html">Problème de caméra.</a></li>
-          <li><a href="#">Bloqué sur Terre !</a></li>
-          <li><a href="../chute/index.html">Absence de matériel.</a></li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-</nav>
+
 <!--Entête indiquant le titre et la page où l'on se trouve  -->
 <div class="jumbotron">
 <div class="container">
-	<h2>Chronophotogramme <small> de la chute d'une bille dans le vide. </small></h2>
+	<h2>Bloqué sur Terre ! <small> Chronophotogramme de la chute d'une bille dans le vide. </small></h2>
 		<p>
 			<span id="titrePage"> Sélection des paramètres de simulation. </span>
 		</p>
@@ -69,38 +54,28 @@
 <!-- Les différentes sections qui seront affichées ou cachés -->
 <!--  Faire un hack pour firefox et ie pour le type number :( -->
 <div id="accueil" class="container" >
-	<form id="parametres" class="form-horizontal" role="form">
+	<form id="parametres"  role="form">
     <div class="form-group">
-      <label for="hauteurDepart" class="col-md-4 control-label">Hauteur de départ de la bille</label>
-      <div class="col-md-8">
-        <input id="hauteurDepart" class="form-control" name="hauteurDepart" type="number" min="1" max="10" value="1" /><span id="hauteur" class="info"></span>
-      </div>
+      <label for="hauteurDepart" class="control-label">Hauteur de départ de la bille</label>
+      <input id="hauteurDepart" class="form-control" name="hauteurDepart" type="number" min="1" max="10" value="1" /><span id="hauteur" class="info"></span>
     </div>
 
     <div class="form-group">
-      <label for="masseBille" class="col-md-4 control-label">Masse de la bille (en gramme)</label>
-      <div class="col-md-8">
-        <input id="masseBille" class="form-control" name="masseBille" type="number" min="10" max="100" step="10" value="10"/><span id="masse" class="info"></span>
-      </div>
+      <label for="masseBille" class="control-label">Masse de la bille (en gramme)</label>
+      <input id="masseBille" class="form-control" name="masseBille" type="number" min="10" max="100" step="10" value="10"/><span id="masse" class="info"></span>
     </div>
 
     <div class="form-group">
-      <label for="vitesseInitiale" class="col-md-4 control-label">Vitesse initiale de la bille</label>
-      <div class="col-md-8">
-        <input id="vitesseInitiale" class="form-control" name="vitesseInitiale" type="number" min="0" max="10" value="0"/><span id="vitesse" class="info"></span>
-      </div>
+      <label for="vitesseInitiale" class="control-label">Vitesse initiale de la bille</label>
+      <input id="vitesseInitiale" class="form-control" name="vitesseInitiale" type="number" min="0" max="10" value="0"/><span id="vitesse" class="info"></span>
     </div>
 
-	<div class="form-group" >
-		<label for="sens" class="col-md-4 control-label">Sens de la vitesse initiale : vers le bas</label>
-    <div class="col-md-8">
-		<input id="sens" class="form-control" name="sens" type="checkbox" value="0" checked/>
-	</div>
-    </div>
+	<div class="checkbox">
+		<label for="sens" class="control-label"> <input id="sens" class="form-control" name="sens" type="checkbox" value="0" checked>La bille est lancée vers le bas.</label>
+  </div>
 
 	<div class="form-group">
-		<label for="lieu" class="col-md-4 control-label">Où fait-on l'expérience?</label> 
-    <div class="col-md-8">
+		<label for="lieu" class="control-label">Où fait-on l'expérience?</label> 
 		<select id="lieu" name="lieu" class="form-control">
 			<option value="Mercure">Mercure</option>
 			<option value="Venus">Vénus</option>
@@ -112,11 +87,10 @@
 			<option value="Uranus">Uranus</option>
 			<option value="Neptune">Neptune</option>
 		</select>
-	</div>
   </div>
 
-	<input type="submit" class="btn btn-primary" value="Aller à la simulation"/>
-	<input type="reset"  class="btn btn-primary" value="Réinitialiser"/>
+	<input type="submit" class="btn btn-primary btn-block" value="Aller à la simulation"/>
+	<input type="reset"  class="btn btn-primary btn-block" value="Réinitialiser"/>
 	</form>
 </div>
 
@@ -125,9 +99,9 @@
     <!-- Les boutons d'action de la simulation --->
     <div class="col-md-2">
        <div class="boutons">
-        <p><button id="animation" class="btn btn-primary">Lancer la simulation</button></p>
-        <p><button id="reset" class="btn btn-primary">Revenir à l'état initial</button></p>
-        <p><button id="retourParam" class="btn btn-primary">Retourner aux paramètres</button></p>
+        <button id="animation" class="btn btn-primary btn-block">Lancer la simulation</button>
+        <button id="reset" class="btn btn-primary btn-block">Revenir à l'état initial</button>
+        <button id="retourParam" class="btn btn-primary btn-block">Retourner aux paramètres</button>
       </div>
     </div>
     
@@ -178,16 +152,12 @@
 
 
 <!-- Notes d'appartenance -->
-<footer class="container">
+<footer>
 <!-- Faire popup sur les liens -->
-	<button id="buttonVersion" class="btn btn-default">Notes de versions</button>
+	<button id="buttonVersion" class="btn btn-default btn-block">Notes de versions</button>
 	<!--  <a href="#?w=500" rel="version"> Notes de versions</a>-->
-	<br />
-	<button id="buttonInstructions" class="btn btn-default">Mode d'emploi</button>
-	<br />
+	<button id="buttonInstructions" class="btn btn-default btn-block">Mode d'emploi</button>
 	E Aivayan
-	<br />
-	
 </footer>
 </body>
 </html>
